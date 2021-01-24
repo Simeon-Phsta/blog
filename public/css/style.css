@@ -1,0 +1,55 @@
+@import url(all.css);
+@import url(bootstrap.css);
+html,
+body {
+    height: 100%;
+}
+
+body {
+    color: black;
+    background: white;
+    font-family: 'Futura', 'Futura', 'Trebuchet MS', sans-serif;
+}
+
+#global {
+    min-height: 100%;
+    /* Voir commentaire sur html et body plus haut */
+    background: white;
+    /*largeur*/
+    width: 90%;
+    /*centre le global*/
+    margin: auto;
+    /* Permet de centrer la div */
+    text-align: center;
+    padding: 5px 20px;
+}
+
+h2 {
+    font-size: 2px;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    /* Les bordures du tableau seront collées (plus joli) */
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid black;
+}
+
+ul {
+    list-style-type: none;
+}
+
+img {
+    border: black;
+    border: 0.5em;
+    border-style: solid;
+}
+
+.affichageBillets {
+    display: flex;
+    flex-wrap: wrap;
+}
