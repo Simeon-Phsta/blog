@@ -1,50 +1,38 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.7
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Jan 19, 2021 at 08:58 PM
--- Server version: 8.0.21
--- PHP Version: 7.4.9
+-- Hôte : localhost:3306
+-- Généré le : mer. 05 mai 2021 à 19:20
+-- Version du serveur :  5.7.32
+-- Version de PHP : 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
--- Database: `mvc_blog_perso`
+-- Base de données : `mvc_blog`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `billet`
+-- Structure de la table `billet`
 --
 
-DROP TABLE IF EXISTS `billet`;
-CREATE TABLE IF NOT EXISTS `billet` (
+CREATE TABLE `billet` (
   `BIL_ID` varchar(20) NOT NULL,
   `BIL_DATE` varchar(50) NOT NULL,
   `BIL_TITRE` varchar(100) NOT NULL,
-  `BIL_CONTENU` varchar(4000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `BIL_CONTENU` varchar(4000) NOT NULL,
   `BIL_LIEN` text NOT NULL,
   `BIL_IMG` varchar(40) NOT NULL,
-  `BIL_TYPE` int NOT NULL,
-  `BIL_AUTEUR` varchar(20) NOT NULL,
-  PRIMARY KEY (`BIL_ID`),
-  UNIQUE KEY `BIL_ID` (`BIL_ID`),
-  KEY `BIL_TYPE` (`BIL_TYPE`),
-  KEY `BIL_AUTEUR` (`BIL_AUTEUR`)
+  `BIL_TYPE` int(11) NOT NULL,
+  `BIL_AUTEUR` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `billet`
+-- Déchargement des données de la table `billet`
 --
 
 INSERT INTO `billet` (`BIL_ID`, `BIL_DATE`, `BIL_TITRE`, `BIL_CONTENU`, `BIL_LIEN`, `BIL_IMG`, `BIL_TYPE`, `BIL_AUTEUR`) VALUES
@@ -64,43 +52,41 @@ INSERT INTO `billet` (`BIL_ID`, `BIL_DATE`, `BIL_TITRE`, `BIL_CONTENU`, `BIL_LIE
 ('6005fa5cf21c8', '2021-01-15 23:47:55', 'La guerre Amazon/Netflix en Inde', 'En Inde, Amazon et Netflix se livrent une guerre pour le marché du service de streaming, avec dernièrement l’un comme l’autre, une offre mobile. Le marché était passé de 50 millions, en 2010, à 600 millions en 2020.', 'https://siecledigital.fr/2021/01/15/inde-amazon-prime-video-abonnemen-reduit/', 'china-flag.png', 1, '34'),
 ('6005fa613f1d5', '2021-01-15 23:48:25', '... pendant que l’euro commence seulement à s’y mettre et envisage la chose pour 2026. ', '', 'https://siecledigital.fr/2021/01/14/euro-numerique-la-banque-centrale-europeenne-mise-sur-2026/', 'euro_flag.png', 1, '34'),
 ('6005fa64ba5d6', '2021-01-15 23:48:36', 'La chine met en place les premiers distributeurs pour yuan numérique …', '', 'https://siecledigital.fr/2021/01/14/la-chine-met-en-place-les-premiers-distributeurs-de-yuan-numeriq', 'china_flag.png', 1, '34'),
-('6005fa683a318', '2021-01-16 00:01:07', 'Ban def de Donald de Snap et de temps d\'autres', 'Ca y est, c’est au tour de Snapchat de bannir définitivement le compte de Donald. Encore une fois la question de la démocratie et de la liberté d’expression est de rigueur quand c’est des entreprises privés qui ont le rôle de juges.\r\nIl a déjà été ban de Youtube, twitter, Twitch, TikTok, Facebook et Redit. Les boutiques shopify qui lui sont reliés, ont été fermées.', 'https://siecledigital.fr/2021/01/15/snapchat-bannit-donald-trump/', 'trump_ban.jpeg', 1, '34'),
-('6005fa6e807f7', '2021-01-16 00:01:49', 'Le ministère de l’intérieur épinglé par la CNIL', 'Le ministère de l’intérieur est épinglé par la CNIL pour l’utilisation de drones pendant le confinement sans cadre légal. Il enfreint la loi Informatiques et Libertés. ', 'https://siecledigital.fr/2021/01/14/drones-ministere-interieur-sanction-cnil/', 'fr_flag.png', 1, '34');
+('6005fa683a318', '2021-01-16 00:01:07', 'Ban def de Donald de Snap et de temps d&#039;autres', 'Ca y est, c’est au tour de Snapchat de bannir définitivement le compte de Donald. Encore une fois la question de la démocratie et de la liberté d’expression est de rigueur quand c’est des entreprises privés qui ont le rôle de juges.\r\nIl a déjà été ban de Youtube, twitter, Twitch, TikTok, Facebook et Redit. Les boutiques shopify qui lui sont reliés, ont été fermées.', 'https://siecledigital.fr/2021/01/15/snapchat-bannit-donald-trump/', 'trump-ban.jpeg', 1, '34'),
+('6005fa6e807f7', '2021-01-16 00:01:49', 'Le ministère de l’intérieur épinglé par la CNIL', 'Le ministère de l’intérieur est épinglé par la CNIL pour l’utilisation de drones pendant le confinement sans cadre légal. Il enfreint la loi Informatiques et Libertés. ', 'https://siecledigital.fr/2021/01/14/drones-ministere-interieur-sanction-cnil/', 'fr_flag.png', 1, '34'),
+('60324692f153d', '2021-02-21 12:40:02', 'Tendances avec le confinement pour les français', 'Il y a un boum de la cuisine de saison, du &quot;do it yourself&quot;, bricolage et couture, musique, échecs avec le confinement.', 'https://hellobiz.fr/2021/01/28/le-boum-impressionnant-de-la-cuisine-maison-en-temps-de-crise/?mc_cid', 'tendance-confinement.jpeg', 1, '34'),
+('603247ccea535', '2021-02-21 12:45:16', 'Les secteurs qui montent avec le confinement', 'Les casinos en ligne, le monde de l&#039;informatique, la restauration et son évolution vers le &quot;à emporter&quot; et enfin le commerce en ligne.', 'https://hellobiz.fr/2021/01/27/les-secteurs-florissants-pendant-la-pandemie-de-covid/?mc_cid=f5e47d8', 'Secteurs-qui-montent.jpeg', 1, '34'),
+('603248bf974d2', '2021-02-21 12:49:19', 'Le no code', 'Logiciels et autres sont faisables désormais, ou tout du moins, l&#039;on peut créer une maquette fonctionnelle avec des systèmes aussi simple d&#039;utilisation que Wordpress. Ici, c&#039;est avec l&#039;application web, appy pi.', 'https://hellobiz.fr/2021/01/24/appy-pie-permet-aux-entreprises-de-creer-leurs-propres-applications-e', 'Le-no-code.jpeg', 1, '34'),
+('60324aafc01e8', '2021-02-21 12:57:35', 'Nouveau carburant pour l&#039;aviation', 'Des chercheurs de l’université d’Oxford en Angleterre &quot;expliquent en effet, portés à une certaine température en présence d’acide citrique, d’hydrogène et d’un catalyseur fer-manganèse-potassium, le gaz carbonique se transforme en un liquide en mesure d’alimenter des réacteurs d’avions.&quot;', 'https://hellobiz.fr/2020/12/30/des-chercheurs-travaillent-sur-un-carburant-liquide-zero-emission-et-', 'Nouveau-carburant.jpeg', 1, '34'),
+('60325d094befa', '2021-02-21 14:15:53', 'Appy Pie', 'Application web cms pour faire tous types d&#039;applications web, mobile et bureau.', 'https://www.appypie.com/app-builder/appmaker', 'Appy-pie.jpeg', 19, '34');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `commentaire`
+-- Structure de la table `commentaire`
 --
 
-DROP TABLE IF EXISTS `commentaire`;
-CREATE TABLE IF NOT EXISTS `commentaire` (
+CREATE TABLE `commentaire` (
   `COM_ID` varchar(20) NOT NULL,
   `COM_DATE` varchar(50) NOT NULL,
   `COM_AUTEUR` varchar(20) NOT NULL,
   `COM_CONTENU` varchar(200) NOT NULL,
-  `BIL_ID` varchar(20) NOT NULL,
-  PRIMARY KEY (`COM_ID`),
-  KEY `fk_com_bil` (`BIL_ID`),
-  KEY `COM_AUTEUR` (`COM_AUTEUR`)
+  `BIL_ID` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role`
+-- Structure de la table `role`
 --
 
-DROP TABLE IF EXISTS `role`;
-CREATE TABLE IF NOT EXISTS `role` (
+CREATE TABLE `role` (
   `R_ID` varchar(20) NOT NULL,
-  `R_LIBELLE` varchar(30) NOT NULL,
-  PRIMARY KEY (`R_ID`),
-  UNIQUE KEY `R_ID` (`R_ID`)
+  `R_LIBELLE` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `role`
+-- Déchargement des données de la table `role`
 --
 
 INSERT INTO `role` (`R_ID`, `R_LIBELLE`) VALUES
@@ -110,76 +96,118 @@ INSERT INTO `role` (`R_ID`, `R_LIBELLE`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `typeinformation`
+-- Structure de la table `typeinformation`
 --
 
-DROP TABLE IF EXISTS `typeinformation`;
-CREATE TABLE IF NOT EXISTS `typeinformation` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `libelle` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+CREATE TABLE `typeinformation` (
+  `id` int(11) NOT NULL,
+  `libelle` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `typeinformation`
+-- Déchargement des données de la table `typeinformation`
 --
 
 INSERT INTO `typeinformation` (`id`, `libelle`) VALUES
 (1, 'News du jour'),
 (2, 'Artiste'),
 (3, 'Film'),
-(18, 'Humain Intéressant');
+(18, 'Humain Intéressant'),
+(19, 'Entreprise');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `utilisateurs`
+-- Structure de la table `utilisateurs`
 --
 
-DROP TABLE IF EXISTS `utilisateurs`;
-CREATE TABLE IF NOT EXISTS `utilisateurs` (
+CREATE TABLE `utilisateurs` (
   `identifiant` varchar(20) NOT NULL,
   `pseudo` varchar(25) NOT NULL,
   `mail` varchar(100) NOT NULL,
   `motdepasse` varchar(250) NOT NULL,
-  `role` varchar(20) NOT NULL DEFAULT 'user',
-  PRIMARY KEY (`identifiant`),
-  UNIQUE KEY `id` (`identifiant`),
-  KEY `role` (`role`)
+  `role` varchar(20) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `utilisateurs`
+-- Déchargement des données de la table `utilisateurs`
 --
 
 INSERT INTO `utilisateurs` (`identifiant`, `pseudo`, `mail`, `motdepasse`, `role`) VALUES
 ('34', 'chihiro', 'try@try.fr', 'Largentcestbien', '1');
 
 --
--- Constraints for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Constraints for table `billet`
+-- Index pour la table `billet`
+--
+ALTER TABLE `billet`
+  ADD PRIMARY KEY (`BIL_ID`),
+  ADD UNIQUE KEY `BIL_ID` (`BIL_ID`),
+  ADD KEY `BIL_TYPE` (`BIL_TYPE`),
+  ADD KEY `BIL_AUTEUR` (`BIL_AUTEUR`);
+
+--
+-- Index pour la table `commentaire`
+--
+ALTER TABLE `commentaire`
+  ADD PRIMARY KEY (`COM_ID`),
+  ADD KEY `fk_com_bil` (`BIL_ID`),
+  ADD KEY `COM_AUTEUR` (`COM_AUTEUR`);
+
+--
+-- Index pour la table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`R_ID`),
+  ADD UNIQUE KEY `R_ID` (`R_ID`);
+
+--
+-- Index pour la table `typeinformation`
+--
+ALTER TABLE `typeinformation`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `utilisateurs`
+--
+ALTER TABLE `utilisateurs`
+  ADD PRIMARY KEY (`identifiant`),
+  ADD UNIQUE KEY `id` (`identifiant`),
+  ADD KEY `role` (`role`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `typeinformation`
+--
+ALTER TABLE `typeinformation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `billet`
 --
 ALTER TABLE `billet`
   ADD CONSTRAINT `billet_ibfk_1` FOREIGN KEY (`BIL_TYPE`) REFERENCES `typeinformation` (`id`),
   ADD CONSTRAINT `billet_ibfk_2` FOREIGN KEY (`BIL_AUTEUR`) REFERENCES `utilisateurs` (`identifiant`);
 
 --
--- Constraints for table `commentaire`
+-- Contraintes pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
   ADD CONSTRAINT `commentaire_ibfk_1` FOREIGN KEY (`BIL_ID`) REFERENCES `billet` (`BIL_ID`),
   ADD CONSTRAINT `commentaire_ibfk_2` FOREIGN KEY (`COM_AUTEUR`) REFERENCES `utilisateurs` (`identifiant`);
 
 --
--- Constraints for table `utilisateurs`
+-- Contraintes pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
   ADD CONSTRAINT `utilisateurs_ibfk_1` FOREIGN KEY (`role`) REFERENCES `role` (`R_ID`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
