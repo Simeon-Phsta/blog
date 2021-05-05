@@ -93,7 +93,7 @@ switch($action){
     #region rechercher 
         case 'rechercher':
         {
-            $unIdType = $_REQUEST['idType'];
+            $unIdType = $_POST['idType'];
             $unIdType = explode("-",$unIdType); 
 
             $typeManager = new TypeManager;

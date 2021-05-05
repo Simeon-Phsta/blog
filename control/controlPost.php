@@ -15,7 +15,7 @@ switch($action){
     {
         $postMananger = new PostManager();
         $typeManager = new TypeManager;
-        $billet = $postMananger->getBillet($_REQUEST['id']);
+        $billet = $postMananger->getBillet($_GET['id']);
         $types = $typeManager->getTypeInformations();
         require 'view/vueAffichagePost.php';
         break;
@@ -85,22 +85,22 @@ switch($action){
                 
 
 
-            $unTitre = $_REQUEST['unTitre'];
-            $unContenu = $_REQUEST['unContenu'];
-            $unLien = $_REQUEST['unLien'];
-            $unType = explode("-",$_REQUEST['unType']); 
+            $unTitre = $_POST['unTitre'];
+            $unContenu = $_POST['unContenu'];
+            $unLien = $_POST['unLien'];
+            $unType = explode("-",$_POST['unType']); 
            
             $postMananger = new PostManager();
 
             if ($uneImage == 'NULL')
             {
-                $postMananger->addBilletsansImage($unTitre, $unContenu, $unLien, $unType[1]);
+                $postMananger->addBilletsansImage($unTitre, $unContenu, $unLien, $unType[1], $_SESSION['id']);
             }else{
-                $postMananger->addBilletavecImage($unTitre, $unContenu, $unLien, $unType[1], $uneImage);
+                $postMananger->addBilletavecImage($unTitre, $unContenu, $unLien, $unType[1], $uneImage, $_SESSION['id']);
             }
             
 
-            if (isset($_SESSION['prenom'])){
+            if (isset($_SESSION['pseudo'])){
                 $postMananger = new PostManager();
                 $typeManager = new TypeManager;
                 $types = $typeManager->getTypeInformations();
@@ -108,7 +108,7 @@ switch($action){
                 break;
             }
             else{
-                require 'view/vuePasCo.php';
+                require 'view/vueErreur.php';
                 break;
             }
 
@@ -120,7 +120,7 @@ switch($action){
         {
             $postMananger = new PostManager();
             $typeManager = new TypeManager;
-            $billet = $postMananger->getBillet($_REQUEST['id']);
+            $billet = $postMananger->getBillet($_GET['id']);
             $types = $typeManager->getTypeInformations();
             require 'view/vueModificationBillet.php';
             break;
@@ -175,26 +175,24 @@ switch($action){
                 }
             }
 
-            $idBillet = $_REQUEST['idPost'];
-            $unTitre = $_REQUEST['titrePost'];
-            $unContenu = $_REQUEST['contenuPost'];
-            $unLien = $_REQUEST['unLien'];
-            $unType = explode("-",$_REQUEST['unType']); 
+            $idBillet = $_POST['idPost'];
+            $unTitre = $_POST['titrePost'];
+            $unContenu = $_POST['contenuPost'];
+            $unLien = $_POST['unLien'];
+            $unType = explode("-",$_POST['unType']); 
            
 
             $postMananger = new PostManager();
             
             if ($uneImage == 'NULL')
             {
-                $postMananger->updateBilletsansImage($idBillet,$unTitre, $unContenu, $unLien, $unType[1]);
-            }
-            else
-            {
-                $postMananger ->updateBilletavecImage($idBillet,$unTitre, $unContenu, $unLien, $unType[1], $uneImage);
+                $postMananger->updateBilletsansImage($idBillet, $unTitre, $unContenu, $unLien, $unType[1], $_SESSION['id']);
+            }else{
+                $postMananger->updateBilletavecImage($idBillet, $unTitre, $unContenu, $unLien, $unType[1], $uneImage, $_SESSION['id']);
             }
             
             
-            if (isset($_SESSION['prenom'])){
+            if (isset($_SESSION['pseudo'])){
                 $postMananger = new PostManager();
                 $typeManager = new TypeManager;
                 $billet = $postMananger->getBillet($idBillet);
@@ -203,7 +201,7 @@ switch($action){
                 break;
             }
             else{
-                require 'view/vuePasCo.php';
+                require 'view/vueErreur.php';
                 break;
             }
         }
@@ -212,11 +210,11 @@ switch($action){
     #region suppressionPost
     case 'suppressionPost':
         {
-            $idBillet = $_REQUEST['id'];
+            $idBillet = $_GET['id'];
             $postMananger = new PostManager();
             $postMananger->deleteBillet($idBillet);
             
-            if (isset($_SESSION['prenom'])){
+            if (isset($_SESSION['pseudo'])){
                 $postMananger = new PostManager();
                 $typeManager = new TypeManager;
                 $posts = $postMananger->getBillets();
@@ -225,7 +223,7 @@ switch($action){
                 break;
             }
             else{
-                require 'view/vuePasCo.php';
+                require 'view/vueErreur.php';
                 break;
             }
         }

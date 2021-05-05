@@ -24,7 +24,7 @@ switch($action){
     #region Insert to
         case 'ajoutType':
         {
-            $libelle = $_REQUEST['libelle'];
+            $libelle = $_POST['libelle'];
             $postMananger = new PostManager();
             $typeManager = new typeManager;
             $typeManager->addType($libelle);
@@ -40,7 +40,7 @@ switch($action){
         {
             $postMananger = new PostManager();
             $typeManager = new typeManager;
-            $typeManager->deleteType($_REQUEST['id']);
+            $typeManager->deleteType($_POST['id']);
             $posts = $postMananger->getBillets();
             $types = $typeManager->getTypeInformations();
             require 'view/vueAccueilType.php';
@@ -54,7 +54,7 @@ switch($action){
             $typeMananger = new typeManager();
             $postMananger = new PostManager();
             $posts = $postMananger->getBillets();
-            $type = $typeMananger->getType($_REQUEST['id']);
+            $type = $typeMananger->getType($_POST['id']);
             $types = $typeMananger->getTypeInformations();
             require 'view/vueModificationType.php';
             break;
@@ -62,8 +62,8 @@ switch($action){
 
         case 'modifierType':
         {
-            $unId = $_REQUEST['idType'];
-            $unLibelle = $_REQUEST['libelle'];
+            $unId = $_POST['idType'];
+            $unLibelle = $_POST['libelle'];
             
             $typeManager = new typeManager();
             $typeManager ->updateType($unId,$unLibelle);
@@ -77,7 +77,7 @@ switch($action){
                 break;
             }
             else{
-                require 'view/vuePasCo.php';
+                require 'view/vueErreur.php';
                 break;
             }
         }

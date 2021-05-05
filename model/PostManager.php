@@ -51,7 +51,7 @@ class PostManager extends Manager
 
     #region insert to
     //ajout d'un billlet avec en paramètre le titre, le contenu du billet, un lien ou non, le type du billet et une image ou non
-    function addBilletavecImage($titreBillet, $unContenu, $unLien, $unType, $leImage)
+    function addBilletavecImage($titreBillet, $unContenu, $unLien, $unType, $leImage, $unAuteur)
     {    
         $unId=uniqid();
 
@@ -61,8 +61,8 @@ class PostManager extends Manager
         $date = date (  'o-m-j H:i:s' );;
 
 
-        $sql = "INSERT INTO billet (BIL_ID, BIL_DATE,BIL_TITRE,BIL_CONTENU,BIL_LIEN, BIL_IMG,BIL_TYPE)
-        VALUES ( :leid, :ladate, :letitre, :lebillet, :lelien, :leimage, :letype)";
+        $sql = "INSERT INTO billet (BIL_ID, BIL_DATE, BIL_TITRE, BIL_CONTENU, BIL_LIEN, BIL_IMG,BIL_TYPE, BIL_AUTEUR)
+        VALUES ( :leid, :ladate, :letitre, :lebillet, :lelien, :leimage, :letype, :leauteur)";
 
         $req = $bdd->prepare($sql);
         $req->execute(array(
@@ -73,10 +73,11 @@ class PostManager extends Manager
         'lelien' => $unLien,
         'leimage' => $leImage,
         'letype' => $unType,
+        'leauteur' => $unAuteur
     ));
     }
 
-    function addBilletsansImage($titreBillet, $unContenu, $unLien, $unType)
+    function addBilletsansImage($titreBillet, $unContenu, $unLien, $unType, $unAuteur)
     {    
         $unId=uniqid();
 
@@ -85,8 +86,8 @@ class PostManager extends Manager
         date_default_timezone_set('Europe/Paris');
         $date = date (  'o-m-j H:i:s' );;
 
-        $sql = "INSERT INTO billet (BIL_ID, BIL_DATE,BIL_TITRE,BIL_CONTENU,BIL_LIEN, BIL_TYPE)
-        VALUES ( :leid, :ladate, :letitre, :lebillet, :lelien, :letype)";
+        $sql = "INSERT INTO billet (BIL_ID, BIL_DATE,BIL_TITRE,BIL_CONTENU,BIL_LIEN, BIL_TYPE, BIL_IMG, BIL_AUTEUR)
+        VALUES ( :leid, :ladate, :letitre, :lebillet, :lelien, :letype, :limg, :leauteur)";
 
         $req = $bdd->prepare($sql);
         $req->execute(array(
@@ -95,7 +96,9 @@ class PostManager extends Manager
         'letitre' => htmlspecialchars($titreBillet, ENT_QUOTES),
         'lebillet' => htmlspecialchars($unContenu, ENT_QUOTES),        
         'lelien' => $unLien,
-        'letype' => $unType
+        'letype' => $unType,
+        'limg' => "",
+        'leauteur' => $unAuteur
         ));
     }
     #endregion
@@ -112,11 +115,11 @@ class PostManager extends Manager
 
     #region update
     //modification d'un post avec image
-    function updateBilletavecImage($idBillet, $unTitre, $unContenu, $unLien, $unType, $uneImage)
+    function updateBilletavecImage($idBillet, $unTitre, $unContenu, $unLien, $unType, $uneImage, $unAuteur)
     {
         $bdd = $this->getBdd();
 
-        $sql = "UPDATE billet SET BIL_TITRE = :letitre, BIL_CONTENU = :lebillet, BIL_LIEN = :lelien , BIL_IMG = :limage, BIL_TYPE = :letype WHERE billet.BIL_ID = :leid";
+        $sql = "UPDATE billet SET BIL_TITRE = :letitre, BIL_CONTENU = :lebillet, BIL_LIEN = :lelien , BIL_IMG = :limage, BIL_TYPE = :letype, BIL_AUTEUR = :leauteur WHERE billet.BIL_ID = :leid";
 
         $req = $bdd->prepare($sql);
         $req->execute(array(
@@ -125,16 +128,19 @@ class PostManager extends Manager
         'lelien' => $unLien,
         'limage' => htmlspecialchars($uneImage),
         'letype' => $unType,
-        'leid' => $idBillet
+        'leid' => $idBillet,
+        'leauteur' => $unAuteur
     ));
     }
 
     //modification d'un post sans image
-    function updateBilletsansImage($idBillet, $titreBillet, $unContenu, $unLien, $unType)
+    function updateBilletsansImage($idBillet, $titreBillet, $unContenu, $unLien, $unType, $unAuteur)
     {
         $bdd = $this->getBdd();
 
-        $sql = "UPDATE billet SET BIL_TITRE = :letitre, BIL_CONTENU = :lebillet, BIL_LIEN = :lelien , BIL_TYPE = :letype WHERE billet.BIL_ID = :leid";
+        $sql = "UPDATE billet SET BIL_TITRE = :letitre, BIL_CONTENU = :lebillet,
+         BIL_LIEN = :lelien , BIL_TYPE = :letype, BIL_AUTEUR = :lauteur 
+         WHERE billet.BIL_ID = :leid";
 
         $bdd = $this->getBdd();
 
@@ -144,7 +150,8 @@ class PostManager extends Manager
         'lebillet' => htmlspecialchars($unContenu, ENT_QUOTES),        
         'lelien' => $unLien,
         'letype' => $unType,
-        'leid' => $idBillet
+        'leid' => $idBillet,
+        'lauteur' => $unAuteur
     ));
  
         
